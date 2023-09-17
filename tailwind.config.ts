@@ -24,6 +24,15 @@ const config: Config = {
           HIGHLIGHT: "var(--BGCOLOR-HIGHLIGHT)",
         },
       },
+      animation: {
+        weather: "weatherChanging 14s ease-in-out infinite alternate-reverse",
+      },
+      keyframes: {
+        weatherChanging: {
+          "0%": { backgroundPosition: " 0% 0% " },
+          "100%": { backgroundPosition: " 100% 100% " },
+        },
+      },
     },
   },
   plugins: [],
