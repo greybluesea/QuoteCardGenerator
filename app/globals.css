@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body,
+:root {
+  height: 100%;
+  background-color: black;
+  color: var(--PRIMARY);
+  color-scheme: dark;
+}
+
+@layer base {
+  :root {
+    --BRAND: rgb(34, 197, 94); /*  green-500 */
+    --BRAND-SECONDARY: rgb(21, 128, 61); /*  green-700 */
+
+    --TEXT-PRIMARY: rgb(230, 230, 230);
+    --TEXT-SECONDARYL: rgb(163 163 163);
+    --TEXT-HIGHLIGHT: rgb(243 244 246);
+
+    --BGCOLOR-PRIMARY: rgb(24, 24, 24);
+    --BGCOLOR-SECONDARY: rgb(43, 43, 43);
+    --BGCOLOR-HIGHLIGHT: rgb(75, 75, 75);
+  }
+}
+
+@layer components {
+  .hover-text-highlight {
+    @apply hover:text-HIGHLIGHT cursor-pointer transition duration-200;
+  }
+}
