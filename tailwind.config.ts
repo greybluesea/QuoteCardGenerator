@@ -25,7 +25,7 @@ const config: Config = {
         },
       },
       animation: {
-        weather: "weatherChanging 14s ease-in-out infinite alternate-reverse",
+        weather: "weatherChanging 12s ease-in-out infinite alternate-reverse",
       },
       keyframes: {
         weatherChanging: {
