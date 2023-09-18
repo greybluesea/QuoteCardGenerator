@@ -1,28 +1,33 @@
+"use client";
+
 import * as Dialog from "@radix-ui/react-dialog";
 import React from "react";
 import { IoMdClose } from "react-icons/io";
+import useStore from "../zustandStore/store";
 
-type ModalProps = {
+/* type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
   title: string;
   description: string;
   children: React.ReactNode;
 };
-
-const Modal = ({
+ */
+const Modal = (/* {
   isOpen,
   onClose,
   title,
   description,
   children,
-}: ModalProps) => {
+}: ModalProps */) => {
+  const { modalIsOpen, closeModal } = useStore();
   return (
-    <Dialog.Root open={isOpen} onOpenChange={onClose} modal>
+    <Dialog.Root open={modalIsOpen} onOpenChange={closeModal} modal>
       <Dialog.Portal>
         <Dialog.Overlay
           className="
-            backdrop-blur-[2px] 
+            bg-slate-800/20
+            backdrop-blur-sm 
             fixed 
             inset-0
             z-[5]
@@ -36,22 +41,22 @@ const Modal = ({
             translate-x-[-50%] 
             translate-y-[-50%] 
 
-            bg-BGCOLOR-SECONDARY 
-            rounded-md 
+            bg-sky-700/40 
+            backdrop-blur-lg
+            rounded-lg 
             border 
-            border-BGCOLOR-SECONDARY
-            drop-shadow-md 
+            border-BGCOLOR
+            drop-shadow-[5px_5px_5px_5px_rgba(222, 224, 228, 0.9)] 
              
-            w-full 
-            h-full 
-            max-h-full 
-            sm:h-auto 
-            sm:max-h-[85vh] 
-            sm:w-[90vw] 
-            sm:max-w-[450px] 
-
-            p-[25px] 
-              
+            w-[63dvw] 
+            h-[70dvh]
+            md:h-[63dvh] 
+            min-w-[320px]
+            
+            px-[7dvw]
+          
+            z-[6]
+            flex flex-col items-center justify-center
           "
         >
           <Dialog.Title
@@ -62,7 +67,7 @@ const Modal = ({
               mb-2
             "
           >
-            {title}
+            'title'
           </Dialog.Title>
           <Dialog.Description
             className="
@@ -70,7 +75,7 @@ const Modal = ({
               text-center
             "
           >
-            {description}
+            "description"
           </Dialog.Description>
 
           <Dialog.Close asChild>
@@ -94,7 +99,7 @@ const Modal = ({
               <IoMdClose size="25" />
             </button>
           </Dialog.Close>
-          <div autoFocus={true}>{children}</div>
+          <div autoFocus={true}>{"text"}</div>
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>
