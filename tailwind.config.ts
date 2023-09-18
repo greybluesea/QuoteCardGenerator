@@ -25,12 +25,12 @@ const config: Config = {
         },
       },
       animation: {
-        weather: "weatherChanging 12s ease-in-out infinite alternate-reverse",
+        weather: "weatherChanging 8s ease-in-out infinite alternate-reverse",
       },
       keyframes: {
         weatherChanging: {
-          "0%": { backgroundPosition: " 0% 0% " },
-          "100%": { backgroundPosition: " 100% 100% " },
+          "0%": { backgroundPosition: " 12% 12% " },
+          "100%": { backgroundPosition: " 87% 87% " },
         },
       },
     },

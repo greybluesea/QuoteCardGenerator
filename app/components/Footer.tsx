@@ -22,6 +22,7 @@ const Footer = (props: Props) => {
             href={"https://youtube.com/@greybluesea"}
             target="_self"
             rel="noopener noreferrer"
+            style={{ textDecoration: "underline" }}
           >
             greybluesea
           </Link>
