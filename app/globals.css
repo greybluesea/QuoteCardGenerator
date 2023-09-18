@@ -6,28 +6,28 @@ html,
 body,
 :root {
   height: 100%;
-  background-color: black;
+  background-color: var(--BGCOLOR-PRIMARY);
   color: var(--TEXT-PRIMARY);
   color-scheme: dark;
 }
 
 @layer base {
   :root {
-    --BRAND: rgb(34, 197, 94); /*  green-500 */
-    --BRAND-SECONDARY: rgb(21, 128, 61); /*  green-700 */
+    --BRAND: rgb(249 115 22); /*  orange-500 */
+    --BRAND-SECONDARY: #1e293b; /*  slate-800 */
 
     --TEXT-PRIMARY: rgb(230, 230, 230);
-    --TEXT-SECONDARYL: rgb(163 163 163);
+    --TEXT-SECONDARY: rgb(163 163 163);
     --TEXT-HIGHLIGHT: rgb(243 244 246);
 
-    --BGCOLOR-PRIMARY: rgb(24, 24, 24);
+    --BGCOLOR-PRIMARY: #0369a1; /*  sky-700 */
     --BGCOLOR-SECONDARY: rgb(43, 43, 43);
-    --BGCOLOR-HIGHLIGHT: rgb(75, 75, 75);
+    --BGCOLOR-HIGHLIGHT: #1e293b; /*  slate-800 */
   }
 }
 
 @layer components {
-  .hover-text-highlight {
-    @apply hover:text-HIGHLIGHT cursor-pointer transition duration-200;
+  .large-text {
+    @apply text-lg sm:text-xl md:text-2xl lg:text-3xl text-TEXT-HIGHLIGHT whitespace-nowrap;
   }
 }
