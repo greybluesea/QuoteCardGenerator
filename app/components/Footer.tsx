@@ -13,10 +13,11 @@ const Footer = (props: Props) => {
         Quotes Generated: {numberOfQuotesGenerated}
       </p>
       <ul className="hidden lg:flex lg:flex-col w-[500px]  mx-auto items-center  space-y-1 rounded-xl mt-5">
-        <li>AWS( Lambda + DynamoDB ) + GraphQL + Next.js</li>
-        <li>leanred from Brian Hough</li>
+        <li>AWS( Lambda + Amplify + DynamoDB ) + GraphQL + Next.js</li>
+        <li>quotes from ZenQuotes</li>
+
         <li>
-          powered by{" "}
+          leanred from Brian Hough, powered by{" "}
           <Link
             href={"https://youtube.com/@greybluesea"}
             target="_self"

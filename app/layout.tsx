@@ -21,10 +21,10 @@ export default function RootLayout({
       <body
         className={
           inter.className +
-          " w-[100dvw] h-[100dvh] p-24 text-TEXT bg-gradient-to-br from-slate-800 to-sky-600 bg-[size:160%_120%] animate-weather backdrop-blur-[80px] "
+          " w-[100dvw] h-[100dvh] p-24 bg-gradient-to-br from-slate-800 to-sky-700 bg-[size:200%_160%] animate-weather backdrop-blur-[80px] "
         }
       >
-        <div className="fixed left-6 top-0 w-[130px] aspect-square sm:left-12  sm:w-[200px]  md:left-14 md:w-[270px] lg:left-16 lg:w-[320px] m-4 mx-2 ">
+        <div className="fixed left-[0.5dvw] top-0 w-[130px] aspect-square sm:left-12 sm:w-[200px]  md:left-14 md:w-[270px] lg:left-16 lg:w-[320px] ">
           <Image
             src={"/img/cloud-and-thunder.png"}
             fill
