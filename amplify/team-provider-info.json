@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-quotecardgenerator-dev-105844-authRole",
+      "UnauthRoleArn": "arn:aws:iam::438492153759:role/amplify-quotecardgenerator-dev-105844-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::438492153759:role/amplify-quotecardgenerator-dev-105844-authRole",
+      "Region": "ap-southeast-2",
+      "DeploymentBucketName": "amplify-quotecardgenerator-dev-105844-deployment",
+      "UnauthRoleName": "amplify-quotecardgenerator-dev-105844-unauthRole",
+      "StackName": "amplify-quotecardgenerator-dev-105844",
+      "StackId": "arn:aws:cloudformation:ap-southeast-2:438492153759:stack/amplify-quotecardgenerator-dev-105844/15d8d780-5740-11ee-820a-0a3d936be95e",
+      "AmplifyAppId": "d19sercbk8ryz0"
+    }
+  }
+}
