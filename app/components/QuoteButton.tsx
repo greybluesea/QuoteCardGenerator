@@ -21,7 +21,7 @@ const QuoteButton = (props: Props) => {
         }}
         onClick={openModal}
       >
-        A Quote for Today
+        Quote of the day
       </button>
       <Modal />
     </>

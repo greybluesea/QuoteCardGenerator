@@ -33,32 +33,7 @@ const Modal = (/* {
             z-[5]
           "
         />
-        <Dialog.Content
-          className="
-            fixed 
-            top-[50%] 
-            left-[50%]  
-            translate-x-[-50%] 
-            translate-y-[-50%] 
-
-            bg-sky-700/40 
-            backdrop-blur-lg
-            rounded-lg 
-            border 
-            border-BGCOLOR
-            drop-shadow-[5px_5px_5px_5px_rgba(222, 224, 228, 0.9)] 
-             
-            w-[63dvw] 
-            h-[70dvh]
-            md:h-[63dvh] 
-            min-w-[320px]
-            
-            px-[7dvw]
-          
-            z-[6]
-            flex flex-col items-center justify-center
-          "
-        >
+        <Dialog.Content className=" square-in-the-center bg-sky-700/40 z-[6]  drop-shadow-[5px_5px_5px_5px_rgba(222,224,228,0.9)]  ">
           <Dialog.Title
             className="
               text-2xl 

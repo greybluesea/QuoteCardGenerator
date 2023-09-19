@@ -1,0 +1,141 @@
+/* 
+1. fetch a random quote
+2. format quote text of quote and author into lines
+3. construct quoteText svg and turn into buffer
+4. construct a quote background image svg, and turn into buffer
+5. with a timestamp,  SVG -> image as PNG (/base64 in lambda)
+*/
+
+// 1. fetch a random quote  
+// & 2. turn text of quote and author into lines
+
+const sharp = require('sharp');
+const quotesApiURL = "https://zenquotes.io/api/random";
+const fetch = require('node-fetch');
+const width = 889;
+const halfWidth =Math.round(width/2);
+let goodStartX=Math.round(width*0.218);
+const oneThirdOfWidth=Math.round(width/3);
+const twoThirdsOfWidth=Math.round(width*2/3);
+const height = 500;
+const goodStartY=Math.round(height*0.318);
+const halfHeight = Math.round(height/2);
+const oneThirdOfHeight = Math.round(height/3);
+const twoThirdsOfHeight = Math.round(height*2/3);
+let wordCountEachLine = 4;
+let quoteText='';
+let quoteAuthor='';
+let newLineText='';
+let tspanElements='';
+
+const getRandomQuote = async()=>{
+  
+   const res = await fetch(quotesApiURL);
+   const quoteData = await res.json();
+   quoteText = quoteData[0].q;
+   quoteAuthor = quoteData[0].a;
+    
+   const words = quoteText.split(' ');
+
+  if (words.length > 16) {wordCountEachLine = 5; goodStartX =Math.round(width*0.2)};
+  if (words.length > 20) {wordCountEachLine = 6; goodStartX =Math.round(width*0.17)};
+
+  for (let i=0; i<words.length; i++){
+    newLineText += words[i] + ' ';
+    if ((i + 1) % wordCountEachLine === 0) {
+    tspanElements += `<tspan x="${halfWidth}" class='eachLineOfText'  dy="1.2em" >${newLineText}</tspan>`;
+    newLineText='';
+    }
+  }
+
+if ( newLineText !== '') {
+    tspanElements += `<tspan x="${halfWidth}" class='eachLineOfText' dy="1.2em">${newLineText}</tspan>`;
+    newLineText='';
+    }
+
+   console.log(quoteText,quoteAuthor,tspanElements);
+
+
+//3. construct quoteText svg and turn into buffer 
+const svgText = `
+   <svg width="${width}" height="${height}" >
+   <style>
+   .eachLineOfText {
+    text-anchor: middle;
+   }
+   .quoteAuthorStyle {
+    font-size:30px;
+    font-weight:bold;
+    padding:20px;
+    text-anchor:start;
+   }
+   .footerStyle {
+    font-size:20px;
+    fill:lightgrey;
+    text-anchor: middle;
+    font-family: Verdana;
+   }
+   </style>
+   <circle cx='${halfWidth}' cy='76' r='44' fill='rgba(255,255,255,0.155)' />
+   <text  x='${halfWidth}' y='76' dy='60' text-anchor='middle' font-size='100' font-family='verdana' fill='white'>"</text>
+   <g>
+     <rect x='0' y='0' width='${width}' height='auto'></rect>
+     <text id='quoteText' x='${halfWidth}' class='eachLineOfText' y='${goodStartY}' font-family='verdana' font-size='35'
+     fill='white'>
+     ${tspanElements}
+     <tspan class='quoteAuthorStyle' x='${halfWidth - 25}' dy="1.8em" >- ${quoteAuthor}</tspan>
+     </text>
+   </g>
+   <text x='${halfWidth}' y='${height - 35}' class='footerStyle'>Powered by greybluesea | Quotes from ZenQuotes</text>
+   </svg>
+`
+const svgTextBuffer = Buffer.from(svgText);
+
+
+// 4. construct a quote background image svg, and turn into buffer
+const backgroundImages = [
+    ['#FC354C',"#0ABFBC"],["#b92b27", "#1565C0"],["#FF0099", "#493240"], ["#8360c3", "#2ebf91"],['#009FFF',"#ec2F4B"],["#355C7D","#C06C84"]
+]
+
+const selectedRandomBackgroundImage= backgroundImages[Math.floor(Math.random()*backgroundImages.length)];
+
+const bgSVG = `<svg width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
+<style>
+rect{fill:url(#MyGradient)}
+</style>
+<defs>
+        <linearGradient id="MyGradient">
+          <stop offset="0%" stop-color="${selectedRandomBackgroundImage[0]}" />
+          <stop offset="100%" stop-color="${selectedRandomBackgroundImage[1]}" />
+        </linearGradient>
+      </defs>
+<rect width="100%" height="100%"  />
+</svg>`
+
+const bgSVGBuffer = Buffer.from(bgSVG)
+
+
+// 5. with a timestamp,  SVG -> image as PNG (/base64 in lambda)
+const timestamp = new Date().toLocaleString().replace(/[^\d]/g, '');
+const image = await sharp(bgSVGBuffer)
+.composite([
+     {
+        input: svgTextBuffer,
+        top: 0,
+        left: 0,
+    }
+])
+.toFile(`finals/quote-card_${timestamp}.png`);
+
+}
+
+
+
+
+ getRandomQuote();
+       
+
+
+
+
+

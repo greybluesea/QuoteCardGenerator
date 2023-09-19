@@ -14,7 +14,7 @@ const Footer = (props: Props) => {
       </p>
       <ul className="text-TEXT/60 hidden xl:flex xl:flex-col w-[500px]  mx-auto items-center  space-y-1 rounded-xl mt-3">
         <li>AWS( Lambda + Amplify + DynamoDB ) + GraphQL + Next.js</li>
-        <li>quotes from ZenQuotes</li>
+        <li>quotes from ZenQuotes; gradients from UIgradients</li>
 
         <li>
           leanred from Brian Hough, powered by{" "}

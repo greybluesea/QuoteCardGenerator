@@ -30,4 +30,28 @@ body,
   .large-text {
     @apply text-lg sm:text-xl md:text-2xl lg:text-3xl text-TEXT-HIGHLIGHT whitespace-nowrap;
   }
+  .square-in-the-center {
+    @apply fixed 
+    top-[50%] 
+    left-[50%]  
+    translate-x-[-50%] 
+    translate-y-[-50%] 
+  
+    bg-slate-800/40 
+    backdrop-blur-[5px]
+    rounded-lg 
+    border 
+    border-BGCOLOR
+    drop-shadow-[5px_5px_5px_5px_rgba(222,224,228,0.9)] 
+     
+    w-[63dvw] 
+    h-[70dvh]
+    md:h-[63dvh] 
+    min-w-[320px]
+    
+    px-[7dvw]
+  
+    
+    flex flex-col items-center justify-center;
+  }
 }
