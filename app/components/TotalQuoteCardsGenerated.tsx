@@ -4,6 +4,8 @@ import React, { useEffect } from "react";
 import useTotalQuoteCardsGenerated from "../zustandStore/useToatalQuoteCardsGenerated";
 import { quoteCardGeneratorQueryName } from "@/src/graphql/queries";
 import { Amplify, API, graphqlOperation } from "aws-amplify";
+import { GraphQLResult } from "@aws-amplify/api-graphql";
+
 import awsconfig from "../../src/aws-exports";
 Amplify.configure(awsconfig);
 
@@ -24,15 +26,30 @@ const TotalQuoteCardsGenerated = (props: Props) => {
   useEffect(() => {
     const fetchTotalQuoteCardsGenerated = async () => {
       try {
-        const res = await API.graphql<TotalQuoteCardsGeneratedType>({
+        const res = (await API.graphql<TotalQuoteCardsGeneratedType>({
           query: quoteCardGeneratorQueryName,
           authMode: "AWS_IAM",
           variables: {
             queryName: "count",
           },
-        });
+        })) as GraphQLResult<{
+          quoteCardGeneratorQueryName: {
+            items: [TotalQuoteCardsGeneratedType];
+          };
+        }>;
 
-        console.log(res);
+        if (
+          !res.data ||
+          !res.data?.quoteCardGeneratorQueryName ||
+          !res.data.quoteCardGeneratorQueryName.items[0]
+        ) {
+          throw new Error("bad response from API.graphql");
+        }
+
+        const count =
+          res.data.quoteCardGeneratorQueryName.items[0]
+            .totalQuoteCardsGenerated;
+        setTotalQuoteCards(count);
       } catch (error) {
         console.log("error fetching quote cards number", error);
       }
