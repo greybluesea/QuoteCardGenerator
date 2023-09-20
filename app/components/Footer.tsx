@@ -10,7 +10,7 @@ const Footer = (props: Props) => {
   return (
     <footer className="fixed bottom-14 lg:bottom-10 left-0 right-0 flex flex-col items-center z-[1] ">
       <p className="hidden lg:flex text-BRAND text-xl">
-        Total Quotes Generated: {numberOfQuotesGenerated}
+        Total Quote Cards Generated: {numberOfQuotesGenerated}
       </p>
       <ul className="text-TEXT/60 hidden xl:flex xl:flex-col w-[500px]  mx-auto items-center  space-y-1 rounded-xl mt-3">
         <li>AWS( Lambda + Amplify + DynamoDB ) + GraphQL + Next.js</li>
