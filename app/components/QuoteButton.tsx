@@ -1,13 +1,15 @@
 "use client";
 
 import React from "react";
-import useStore from "../zustandStore/store";
+import useModal from "../zustandStore/useModal";
 import Modal from "./Modal";
+import useTotalQuoteCardsGenerated from "../zustandStore/useToatalQuoteCardsGenerated";
 
 type Props = {};
 
 const QuoteButton = (props: Props) => {
-  const { openModal, TotalQuotesAddOne } = useStore();
+  const { openModal } = useModal();
+  const { TotalQuoteCardsAddOne } = useTotalQuoteCardsGenerated();
   return (
     <>
       <button

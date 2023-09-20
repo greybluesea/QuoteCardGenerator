@@ -232,6 +232,14 @@ export type DeleteQuoteCardGeneratorDataMutation = {
   } | null,
 };
 
+export type GenerateAQuoteCardQueryVariables = {
+  input: string,
+};
+
+export type GenerateAQuoteCardQuery = {
+  generateAQuoteCard?: string | null,
+};
+
 export type GetQuoteCardGeneratorDataQueryVariables = {
   id: string,
 };
@@ -289,14 +297,6 @@ export type QuoteCardGeneratorQueryNameQuery = {
     } | null >,
     nextToken?: string | null,
   } | null,
-};
-
-export type GenerateAQuoteCardQueryVariables = {
-  input: string,
-};
-
-export type GenerateAQuoteCardQuery = {
-  generateAQuoteCard?: string | null,
 };
 
 export type OnCreateQuoteCardGeneratorDataSubscriptionVariables = {

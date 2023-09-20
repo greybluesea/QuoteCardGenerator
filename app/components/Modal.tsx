@@ -3,7 +3,7 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import React from "react";
 import { IoMdClose } from "react-icons/io";
-import useStore from "../zustandStore/store";
+import useModal from "../zustandStore/useModal";
 
 /* type ModalProps = {
   isOpen: boolean;
@@ -20,7 +20,7 @@ const Modal = (/* {
   description,
   children,
 }: ModalProps */) => {
-  const { modalIsOpen, closeModal } = useStore();
+  const { modalIsOpen, closeModal } = useModal();
   return (
     <Dialog.Root open={modalIsOpen} onOpenChange={closeModal} modal>
       <Dialog.Portal>

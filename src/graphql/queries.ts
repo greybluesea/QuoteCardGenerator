@@ -2,6 +2,11 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
+export const generateAQuoteCard = /* GraphQL */ `
+  query GenerateAQuoteCard($input: AWSJSON!) {
+    generateAQuoteCard(input: $input)
+  }
+`;
 export const getQuoteCardGeneratorData = /* GraphQL */ `
   query GetQuoteCardGeneratorData($id: ID!) {
     getQuoteCardGeneratorData(id: $id) {
@@ -64,10 +69,5 @@ export const quoteCardGeneratorQueryName = /* GraphQL */ `
       nextToken
       __typename
     }
-  }
-`;
-export const generateAQuoteCard = /* GraphQL */ `
-  query GenerateAQuoteCard($input: AWSJSON!) {
-    generateAQuoteCard(input: $input)
   }
 `;
