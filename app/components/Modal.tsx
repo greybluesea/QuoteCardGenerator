@@ -3,24 +3,24 @@
 import * as Dialog from "@radix-ui/react-dialog";
 import React from "react";
 import { IoMdClose } from "react-icons/io";
-import useModal from "../zustandStore/useModal";
+// import useModal from "../zustandStore/useModal";
 
-/* type ModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-  title: string;
+type ModalProps = {
+  modalIsOpen: boolean;
+  closeModal: () => void;
+  /*title: string;
   description: string;
-  children: React.ReactNode;
+  children: React.ReactNode;*/
 };
- */
-const Modal = (/* {
-  isOpen,
-  onClose,
-  title,
+
+const Modal = ({
+  modalIsOpen,
+  closeModal,
+}: /*title,
   description,
-  children,
-}: ModalProps */) => {
-  const { modalIsOpen, closeModal } = useModal();
+  children,*/
+ModalProps) => {
+  //  const { modalIsOpen, closeModal } = useModal();
   return (
     <Dialog.Root open={modalIsOpen} onOpenChange={closeModal} modal>
       <Dialog.Portal>
@@ -33,7 +33,7 @@ const Modal = (/* {
             z-[5]
           "
         />
-        <Dialog.Content className=" square-in-the-center bg-sky-700/40 z-[6]  drop-shadow-[5px_5px_5px_5px_rgba(222,224,228,0.9)]  ">
+        <Dialog.Content className="square-in-the-center bg-sky-700/40 z-[6]  drop-shadow-[5px_5px_5px_5px_rgba(222,224,228,0.9)]  ">
           <Dialog.Title
             className="
               text-2xl 

@@ -6,11 +6,13 @@ import { quoteCardGeneratorQueryName } from "@/src/graphql/queries";
 import { Amplify, API, graphqlOperation } from "aws-amplify";
 import { GraphQLResult } from "@aws-amplify/api-graphql";
 
-import awsconfig from "../../src/aws-exports";
-Amplify.configure(awsconfig);
+import awsExports from "../../src/aws-exports";
+Amplify.configure({ ...awsExports, ssr: true });
 
-type Props = {};
-
+/* type Props = {
+  count?: number;
+};
+ */
 export type TotalQuoteCardsGeneratedType = {
   id: string;
   queryName: string;
@@ -20,7 +22,7 @@ export type TotalQuoteCardsGeneratedType = {
   updatedAt: string;
 };
 
-const TotalQuoteCardsGenerated = (props: Props) => {
+const TotalQuoteCardsGenerated = (/* { count }: Props */) => {
   const { totalQuoteCards, setTotalQuoteCards } = useTotalQuoteCardsGenerated();
 
   useEffect(() => {
@@ -58,6 +60,7 @@ const TotalQuoteCardsGenerated = (props: Props) => {
     fetchTotalQuoteCardsGenerated();
   }, []);
 
+  /*  setTotalQuoteCards(count || 0); */
   return (
     <p className="hidden lg:flex text-BRAND text-xl">
       Total Quote Cards Generated: {totalQuoteCards}
