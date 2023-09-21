@@ -1400,7 +1400,7 @@ async function updateCountObjectInDB() {
     };
 
     const updateCountObject = await docClient.update(queryParams).promise();
-    console.log(updateCountObject);
+    // console.log(updateCountObject);
     return updateCountObject;
   } catch (error) {
     console.log("error updating quote object in DynamoDB", error);
