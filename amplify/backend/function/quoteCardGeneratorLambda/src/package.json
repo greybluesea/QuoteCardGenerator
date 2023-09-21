@@ -16,5 +16,7 @@
     "node-fetch": "^2.6.8",
     "path": "^0.12.7",
     "sharp": "^0.32.6"
-  }
+  },
+  "keywords": [],
+  "author": ""
 }
