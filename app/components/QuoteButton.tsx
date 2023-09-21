@@ -4,8 +4,18 @@ import React, { useState } from "react";
 // import useModal from "../zustandStore/useModal";
 import Modal from "./Modal";
 import useTotalQuoteCardsGenerated from "../zustandStore/useToatalQuoteCardsGenerated";
+import { API } from "aws-amplify";
+import { generateAQuoteCard } from "@/src/graphql/queries";
 
 type Props = {};
+
+interface APIResponse {
+  generateAQuote: {
+    statusCode: number;
+    headers: { [key: string]: string };
+    body: string;
+  };
+}
 
 const QuoteButton = (props: Props) => {
   // const { openModal } = useModal();
@@ -14,7 +24,7 @@ const QuoteButton = (props: Props) => {
   const [quoteCardString, setQuoteCardString] = useState<string | null>(null);
   const { TotalQuoteCardsAddOne } = useTotalQuoteCardsGenerated();
 
-  const handleOpenModal = (
+  const handleOpenModal = async (
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault();
@@ -22,15 +32,16 @@ const QuoteButton = (props: Props) => {
     setIsMakingQuoteCard(true);
     try {
       // Run Lambda Function
-      /*  const runFunction = "runFunction";
+      const runFunction = "runFunction";
       const runFunctionStringified = JSON.stringify(runFunction);
-      const response = await API.graphql<GenerateAQuoteData>({
-        query: generateAQuote,
+      const response = await API.graphql<APIResponse>({
+        query: generateAQuoteCard,
         authMode: "AWS_IAM",
         variables: {
           input: runFunctionStringified,
         },
       });
+
       const responseStringified = JSON.stringify(response);
       const responseReStringified = JSON.stringify(responseStringified);
       const bodyIndex = responseReStringified.indexOf("body=") + 5;
@@ -38,19 +49,15 @@ const QuoteButton = (props: Props) => {
       const bodyArray = bodyAndBase64.split(",");
       const body = bodyArray[0];
       console.log(body);
-      setQuoteReceived(body);
+      setQuoteCardString(body);
 
-      // End state:
       setIsMakingQuoteCard(false);
 
-      // Fetch if any new quotes were generated from counter
-      updateQuoteInfo();
-      setIsMakingQuoteCard(false);
-       */
+      TotalQuoteCardsAddOne();
 
-      setTimeout(() => {
+      /*  setTimeout(() => {
         setIsMakingQuoteCard(false);
-      }, 3000);
+      }, 3000); */
     } catch (error) {
       console.log("error generating quote:", error);
       setIsMakingQuoteCard(false);
@@ -68,7 +75,6 @@ const QuoteButton = (props: Props) => {
           paddingBottom: "min(3dvw, 3dvh)",
           marginTop: "min(7dvw, 7dvh)",
         }}
-        // onClick={openModal}
         onClick={handleOpenModal}
       >
         Quote Card of the day

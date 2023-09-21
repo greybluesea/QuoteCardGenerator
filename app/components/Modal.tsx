@@ -43,7 +43,7 @@ const Modal = ({
         URL.revokeObjectURL(blobUrlGenerated);
       };
     }
-  }, [quoteCardString, blobUrl]);
+  }, [quoteCardString]);
 
   return (
     <Dialog.Root open={modalIsOpen} onOpenChange={closeModal} modal>
@@ -107,10 +107,10 @@ const Modal = ({
             <div autoFocus={true} className="large-text"></div>
           )}
 
-          {isMakingQuoteCard && blobUrl && (
+          {!isMakingQuoteCard && blobUrl && (
             <section autoFocus={true} className="large-text space-y-[5dvh]">
-              <div>
-                <p className="space-y-[2dvh]">hover to see your preview</p>
+              <div className="flex flex-col items-center space-y-[2dvh] ">
+                <p className="text-md">hover to see your preview</p>
                 <ImageBlob blobUrl={blobUrl} />
               </div>
               <DownloadButton handleDownload={handleDownload} />

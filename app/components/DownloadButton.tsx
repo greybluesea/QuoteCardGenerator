@@ -10,10 +10,12 @@ interface DownloadButtonProps {
 const DownloadButton = ({ handleDownload }: DownloadButtonProps) => {
   return (
     <div
-      className=" bg-orange-500/80 hover:bg-BRAND hover:text-TEXT-HIGHLIGHT transition-all rounded-lg z-[8] "
+      className=" bg-orange-500/80 hover:bg-BRAND hover:text-TEXT-HIGHLIGHT transition-all z-[8] flex flex-col items-center p-6 rounded-lg"
       onClick={handleDownload}
     >
-      <Lottie loop animationData={lottieJson} play />
+      <div className="w-60 h-60 ">
+        <Lottie loop animationData={lottieJson} play />
+      </div>
       <p>Download your quote card</p>
     </div>
   );

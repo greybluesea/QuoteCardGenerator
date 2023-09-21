@@ -18,7 +18,6 @@ export type TotalQuoteCardsGeneratedType = {
   queryName: string;
   totalQuoteCardsGenerated: number;
   createdAt: string;
-
   updatedAt: string;
 };
 
