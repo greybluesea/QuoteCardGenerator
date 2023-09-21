@@ -34,9 +34,9 @@ const Modal = ({
   useEffect(() => {
     if (quoteCardString) {
       const binaryData = Buffer.from(quoteCardString, "base64");
-      const blob = new Blob([binaryData], { type: "image/png" });
-      const blobUrlGenerated = URL.createObjectURL(blob);
-      console.log(blobUrlGenerated);
+      const imageBlob = new Blob([binaryData], { type: "image/png" });
+      const blobUrlGenerated = URL.createObjectURL(imageBlob);
+      //   console.log(blobUrlGenerated);
       setBlobUrl(blobUrlGenerated);
 
       return () => {
@@ -51,26 +51,28 @@ const Modal = ({
         <Dialog.Overlay
           className="
             bg-sky-700/20
-            backdrop-blur-sm 
+            backdrop-blur-[2px] 
             fixed 
             inset-0
             z-[5]
           "
         />
-        <Dialog.Content className="square-in-the-center bg-sky-600/60 z-[6] backdrop-blur-md ">
+        <Dialog.Content className="square-in-the-center bg-sky-600/60 border-sky-500 z-[6] backdrop-blur-md ">
           <Dialog.Title
             className={
               " large-text " +
               (isMakingQuoteCard && " absolute top-[12dvh] ") +
               (!blobUrl && " absolute top-[12dvh] ") +
-              (!isMakingQuoteCard && blobUrl && " mb-[5dvh] ")
+              (!isMakingQuoteCard &&
+                blobUrl &&
+                " mb-[1dvh] md:mb-[2dvh] lg:mb-[3dvh] xl:mb-[4dvh] 2xl:mb-[5dvh] ")
             }
           >
             {isMakingQuoteCard
-              ? "Making your Quote Card"
+              ? "Generating your Quote Card"
               : blobUrl
               ? "Quote Card is ready for download"
-              : "Failed to make the Quote Card"}
+              : "Failed to generate the Quote Card"}
           </Dialog.Title>
           {/*  <Dialog.Description
             className="
@@ -109,15 +111,15 @@ const Modal = ({
           )}
 
           {!isMakingQuoteCard && blobUrl && (
-            <section autoFocus={true} className=" space-y-[5dvh]">
+            <section
+              autoFocus={true}
+              className="space-y-[1dvh] md:space-y-[2dvh] lg:space-y-[3dvh] xl:space-y-[4dvh] 2xl:space-y-[5dvh]"
+            >
               <div className="flex flex-col items-center space-y-[1dvh] ">
-                <p className="text-2xl">hover to preview</p>
-                <ImageBlob blobUrl={blobUrl} />
+                <p className="medium-text">hover to preview</p>
+                <ImageBlob blobUrl={blobUrl} onClick={handleDownload} />
               </div>
-              <DownloadButton
-                handleDownload={handleDownload}
-                /*  blobUrl={blobUrl} */
-              />
+              <DownloadButton handleDownload={handleDownload} />
             </section>
           )}
         </Dialog.Content>

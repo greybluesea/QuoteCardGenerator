@@ -57,7 +57,7 @@ const TotalQuoteCardsGenerated = (/* { count }: Props */) => {
     };
 
     fetchTotalQuoteCardsGenerated();
-  }, [totalQuoteCards]);
+  }, []);
 
   /*  setTotalQuoteCards(count || 0); */
   return (

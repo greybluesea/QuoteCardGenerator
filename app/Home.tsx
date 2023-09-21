@@ -1,5 +1,5 @@
 import Link from "next/link";
-import QuoteButton from "./components/QuoteButton";
+import QuoteCardButton from "./components/QuoteCardButton";
 
 export default function Home() {
   return (
@@ -24,7 +24,7 @@ export default function Home() {
           </Link>
         </p>
       </div>
-      <QuoteButton />
+      <QuoteCardButton />
     </main>
   );
 }

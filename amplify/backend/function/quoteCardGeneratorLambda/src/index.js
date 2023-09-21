@@ -20,7 +20,7 @@ const fetch = require("node-fetch");
 const path = require("path");
 const fs = require("fs");
 
-// constants and variables
+// constants
 
 const quotesApiURL = "https://zenquotes.io/api/random";
 const gradientsApiURL = "http://uigradients.com/gradients.json";
@@ -1376,82 +1376,82 @@ const gradientsFromUIGradients = [
   },
 ];
 
-exports.handler = async (event) => {
-  // console.log event
-  console.log(`EVENT: ${JSON.stringify(event)}`);
+// async Function: update count object DynamoDB table
+async function updateCountObjectInDB() {
+  const countTableName =
+    process.env.API_QUOTECARDGENERATOR_QUOTECARDGENERATORDATATABLE_NAME;
+  const countObjectId = "12345-123456-456456456-789789789";
 
-  // async Function: update count object DynamoDB table
-  async function updateCountObjectInDB() {
-    const countTableName =
-      process.env.API_QUOTECARDGENERATOR_QUOTECARDGENERATORDATATABLE_NAME;
-    const countObjectId = "12345-123456-456456456-789789789";
+  try {
+    var queryParams = {
+      TableName: countTableName,
+      Key: {
+        id: countObjectId,
+      },
+      UpdateExpression:
+        "SET #totalQuoteCardsGenerated = #totalQuoteCardsGenerated + :inc",
+      ExpressionAttributeValues: {
+        ":inc": 1,
+      },
+      ExpressionAttributeNames: {
+        "#totalQuoteCardsGenerated": "totalQuoteCardsGenerated",
+      },
+      ReturnValues: "UPDATED_NEW",
+    };
 
-    try {
-      var queryParams = {
-        TableName: countTableName,
-        Key: {
-          id: countObjectId,
-        },
-        UpdateExpression:
-          "SET #totalQuoteCardsGenerated = #totalQuoteCardsGenerated + :inc",
-        ExpressionAttributeValues: {
-          ":inc": 1,
-        },
-        ExpressionAttributeNames: {
-          "#totalQuoteCardsGenerated": "totalQuoteCardsGenerated",
-        },
-        ReturnValues: "UPDATED_NEW",
-      };
+    const updateCountObject = await docClient.update(queryParams).promise();
+    console.log(updateCountObject);
+    return updateCountObject;
+  } catch (error) {
+    console.log("error updating quote object in DynamoDB", error);
+  }
+}
 
-      const updateCountObject = await docClient.update(queryParams).promise();
-      console.log(updateCountObject);
-      return updateCountObject;
-    } catch (error) {
-      console.log("error updating quote object in DynamoDB", error);
+// async Function generate quote card/image
+
+const generateQuoteCard = async () => {
+  let wordCountEachLine = 4;
+  let quoteText = "";
+  let quoteAuthor = "";
+  let newLineText = "";
+  let tspanElements = "";
+
+  // 1. fetch a random quote
+  // & 2. turn text of quote and author into lines
+
+  const res = await fetch(quotesApiURL);
+  const quoteData = await res.json();
+  quoteText = quoteData[0].q;
+  quoteAuthor = quoteData[0].a;
+
+  const words = quoteText.split(" ");
+
+  if (words.length > 16) {
+    wordCountEachLine = 5;
+    goodStartX = Math.round(width * 0.2);
+  }
+  if (words.length > 20) {
+    wordCountEachLine = 6;
+    goodStartX = Math.round(width * 0.17);
+  }
+
+  for (let i = 0; i < words.length; i++) {
+    newLineText += words[i] + " ";
+    if ((i + 1) % wordCountEachLine === 0) {
+      tspanElements += `<tspan x="${halfWidth}" class='eachLineOfText'  dy="1.2em" >${newLineText}</tspan>`;
+      newLineText = "";
     }
   }
 
-  // async Function generate quote card/image
+  if (newLineText !== "") {
+    tspanElements += `<tspan x="${halfWidth}" class='eachLineOfText' dy="1.2em">${newLineText}</tspan>`;
+    newLineText = "";
+  }
 
-  const generateQuoteCard = async () => {
-    let wordCountEachLine = 4;
-    let quoteText = "";
-    let quoteAuthor = "";
-    let newLineText = "";
-    let tspanElements = "";
-    const res = await fetch(quotesApiURL);
-    const quoteData = await res.json();
-    quoteText = quoteData[0].q;
-    quoteAuthor = quoteData[0].a;
+  console.log(quoteText, quoteAuthor, tspanElements);
 
-    const words = quoteText.split(" ");
-
-    if (words.length > 16) {
-      wordCountEachLine = 5;
-      goodStartX = Math.round(width * 0.2);
-    }
-    if (words.length > 20) {
-      wordCountEachLine = 6;
-      goodStartX = Math.round(width * 0.17);
-    }
-
-    for (let i = 0; i < words.length; i++) {
-      newLineText += words[i] + " ";
-      if ((i + 1) % wordCountEachLine === 0) {
-        tspanElements += `<tspan x="${halfWidth}" class='eachLineOfText'  dy="1.2em" >${newLineText}</tspan>`;
-        newLineText = "";
-      }
-    }
-
-    if (newLineText !== "") {
-      tspanElements += `<tspan x="${halfWidth}" class='eachLineOfText' dy="1.2em">${newLineText}</tspan>`;
-      newLineText = "";
-    }
-
-    console.log(quoteText, quoteAuthor, tspanElements);
-
-    //3. construct quoteText svg and turn into buffer
-    const svgText = `
+  //3. construct quoteText svg and turn into buffer
+  const svgText = `
     <svg width="${width}" height="${height}" >
     <style>
     .eachLineOfText {
@@ -1483,33 +1483,33 @@ exports.handler = async (event) => {
       </text>
     </g>
     <text x='${halfWidth}' y='${
-      height - 35
-    }' class='footerStyle'>Powered by greybluesea | Quotes from ZenQuotes</text>
+    height - 35
+  }' class='footerStyle'>Quotes from ZenQuotes | Powered by greybluesea</text>
     </svg>
  `;
-    const svgTextBuffer = Buffer.from(svgText);
+  const svgTextBuffer = Buffer.from(svgText);
 
-    // 4. construct a quote background image svg, and turn into buffer
+  // 4. construct a quote background image svg, and turn into buffer
 
-    /* const resGradients = await fetch(gradientsApiURL);
+  /* const resGradients = await fetch(gradientsApiURL);
     const gradients = await resGradients.json();
   */
 
-    /* const backgroundImages = [
+  /* const backgroundImages = [
      ['#FC354C',"#0ABFBC"],["#b92b27", "#1565C0"],["#FF0099", "#493240"], ["#8360c3", "#2ebf91"],['#009FFF',"#ec2F4B"],["#355C7D","#C06C84"]
  ]
  
  const selectedRandomBackgroundImage= backgroundImages[Math.floor(Math.random()*backgroundImages.length)]; */
-    const gradients = gradientsFromUIGradients;
+  const gradients = gradientsFromUIGradients;
 
-    const selectedGradient =
-      gradients[Math.floor(Math.random() * gradients.length)];
+  const selectedGradient =
+    gradients[Math.floor(Math.random() * gradients.length)];
 
-    let bgSVG;
+  let bgSVG;
 
-    switch (selectedGradient.colors.length) {
-      case 2:
-        bgSVG = `<svg width="${width}" height="${height}"  xmlns="http://www.w3.org/2000/svg">
+  switch (selectedGradient.colors.length) {
+    case 2:
+      bgSVG = `<svg width="${width}" height="${height}"  xmlns="http://www.w3.org/2000/svg">
  <style>
  rect{fill:url(#MyGradient)}
  </style>
@@ -1521,9 +1521,9 @@ exports.handler = async (event) => {
        </defs>
  <rect width="100%" height="100%" rx="3%" />
  </svg>`;
-        break;
-      case 3:
-        bgSVG = `<svg width="${width}" height="${height}"  xmlns="http://www.w3.org/2000/svg">
+      break;
+    case 3:
+      bgSVG = `<svg width="${width}" height="${height}"  xmlns="http://www.w3.org/2000/svg">
      <style>
      rect{fill:url(#MyGradient)}
      </style>
@@ -1536,9 +1536,9 @@ exports.handler = async (event) => {
            </defs>
      <rect width="100%" height="100%" rx="3%" />
      </svg>`;
-        break;
-      case 4:
-        bgSVG = `<svg width="${width}" height="${height}"  xmlns="http://www.w3.org/2000/svg">
+      break;
+    case 4:
+      bgSVG = `<svg width="${width}" height="${height}"  xmlns="http://www.w3.org/2000/svg">
      <style>
      rect{fill:url(#MyGradient)}
      </style>
@@ -1552,33 +1552,39 @@ exports.handler = async (event) => {
            </defs>
      <rect width="100%" height="100%" rx="3%" />
      </svg>`;
-        break;
-    }
+      break;
+  }
 
-    const bgSVGBuffer = Buffer.from(bgSVG);
+  const bgSVGBuffer = Buffer.from(bgSVG);
 
-    // 5. with a timestamp,  SVG -> image as PNG (/base64 in lambda)
-    // const timestamp = new Date().toLocaleString().replace(/[^\d]/g, "");
-    const imagePath = path.join("/tmp", "quote-card.png");
+  // 5. with a timestamp,  SVG -> image as PNG (/base64 in lambda)
+  // const timestamp = new Date().toLocaleString().replace(/[^\d]/g, "");
+  const imagePath = path.join("/tmp", "quote-card.png");
 
-    await sharp(bgSVGBuffer)
-      .composite([
-        {
-          input: svgTextBuffer,
-          top: 0,
-          left: 0,
-        },
-      ])
-      .toFile(imagePath);
+  await sharp(bgSVGBuffer)
+    .composite([
+      {
+        input: svgTextBuffer,
+        top: 0,
+        left: 0,
+      },
+    ])
+    .toFile(imagePath);
 
-    try {
-      await updateCountObjectInDB();
-    } catch (error) {
-      console.log("error updating quote object in DynamoDB", error);
-    }
+  try {
+    await updateCountObjectInDB();
+  } catch (error) {
+    console.log("error updating quote object in DynamoDB", error);
+  }
 
-    return imagePath;
-  };
+  return imagePath;
+};
+
+//event handler for API
+
+exports.handler = async (event) => {
+  // console.log event
+  console.log(`EVENT: ${JSON.stringify(event)}`);
 
   // call generateQuoteCard function
 

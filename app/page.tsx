@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Modal from "./components/Modal";
 import Link from "next/link";
-import QuoteButton from "./components/QuoteButton";
+import QuoteCardButton from "./components/QuoteCardButton";
 
 export default function Home() {
   return (
@@ -9,10 +9,7 @@ export default function Home() {
       <h2 className="large-text">
         Quote Card<span className="hidden sm:inline"></span> Generator
       </h2>
-      <div
-        className=" text-md sm:text-lg md:text-xl lg:text-2xl  text-center"
-        style={{ marginTop: "min(5dvw, 5dvh)" }}
-      >
+      <div className=" medium-text" style={{ marginTop: "min(5dvw, 5dvh)" }}>
         <p>
           Looking for a splash of inspiration? Generate a quote card (image/png)
           for the day
@@ -30,7 +27,7 @@ export default function Home() {
         </p>
         <p></p>
       </div>
-      <QuoteButton />
+      <QuoteCardButton />
     </main>
   );
 }

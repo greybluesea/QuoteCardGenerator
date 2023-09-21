@@ -17,7 +17,7 @@ interface APIResponse {
   };
 }
 
-const QuoteButton = (props: Props) => {
+const QuoteCardButton = (props: Props) => {
   // const { openModal } = useModal();
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [isMakingQuoteCard, setIsMakingQuoteCard] = useState(false);
@@ -41,14 +41,18 @@ const QuoteButton = (props: Props) => {
           input: runFunctionStringified,
         },
       });
-
+      // console.log(response);
       const responseStringified = JSON.stringify(response);
+      /*  console.log(responseStringified);
       const responseReStringified = JSON.stringify(responseStringified);
+      console.log(responseReStringified);
       const bodyIndex = responseReStringified.indexOf("body=") + 5;
-      const bodyAndBase64 = responseReStringified.substring(bodyIndex);
+      const bodyAndBase64 = responseReStringified.substring(bodyIndex); */
+      const bodyIndex = responseStringified.indexOf("body=") + 5;
+      const bodyAndBase64 = responseStringified.substring(bodyIndex);
       const bodyArray = bodyAndBase64.split(",");
       const body = bodyArray[0];
-      console.log(body);
+      //   console.log(body);
       setQuoteCardString(body);
 
       setIsMakingQuoteCard(false);
@@ -67,7 +71,7 @@ const QuoteButton = (props: Props) => {
   return (
     <>
       <button
-        className="large-text bg-orange-500/90 hover:bg-BRAND hover:text-TEXT-HIGHLIGHT hover:scale-105 transition-all rounded-lg z-[3] "
+        className="large-text bg-orange-500/90 hover:bg-BRAND hover:text-TEXT-HIGHLIGHT hover:scale-105 rounded-lg hover:shadow-[0_0_5px_5px_rgba(249,207,22,0.9)] transition-allz-[3] "
         style={{
           paddingLeft: "max(3dvw, 3dvh)",
           paddingRight: "max(3dvw, 3dvh)",
@@ -89,4 +93,4 @@ const QuoteButton = (props: Props) => {
   );
 };
 
-export default QuoteButton;
+export default QuoteCardButton;
