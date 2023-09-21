@@ -1,26 +1,50 @@
 "use client";
 
 import * as Dialog from "@radix-ui/react-dialog";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
-// import useModal from "../zustandStore/useModal";
+import Spinner from "./Spinner";
+import ImageBlob from "./ImageBlog";
+import DownloadButton from "./DownloadButton";
 
 type ModalProps = {
   modalIsOpen: boolean;
   closeModal: () => void;
-  /*title: string;
-  description: string;
-  children: React.ReactNode;*/
+  isMakingQuoteCard: boolean;
+  quoteCardString: string | null;
 };
 
 const Modal = ({
   modalIsOpen,
   closeModal,
-}: /*title,
-  description,
-  children,*/
-ModalProps) => {
-  //  const { modalIsOpen, closeModal } = useModal();
+  isMakingQuoteCard,
+  quoteCardString = "",
+}: ModalProps) => {
+  const [blobUrl, setBlobUrl] = useState<string | null>(null);
+
+  const handleDownload = () => {
+    const link = document.createElement("a");
+    if (typeof blobUrl === "string") {
+      link.href = blobUrl;
+      link.download = "quote.png";
+      link.click();
+    }
+  };
+
+  useEffect(() => {
+    if (quoteCardString) {
+      const binaryData = Buffer.from(quoteCardString, "base64");
+      const blob = new Blob([binaryData], { type: "image/png" });
+      const blobUrlGenerated = URL.createObjectURL(blob);
+      console.log(blobUrlGenerated);
+      setBlobUrl(blobUrlGenerated);
+
+      return () => {
+        URL.revokeObjectURL(blobUrlGenerated);
+      };
+    }
+  }, [quoteCardString, blobUrl]);
+
   return (
     <Dialog.Root open={modalIsOpen} onOpenChange={closeModal} modal>
       <Dialog.Portal>
@@ -33,25 +57,28 @@ ModalProps) => {
             z-[5]
           "
         />
-        <Dialog.Content className="square-in-the-center bg-sky-700/40 z-[6]  drop-shadow-[5px_5px_5px_5px_rgba(222,224,228,0.9)]  ">
+        <Dialog.Content className="square-in-the-center bg-sky-600/60 z-[6] ">
           <Dialog.Title
-            className="
-              text-2xl 
-              text-center 
-              font-bold 
-              mb-2
-            "
+            className={
+              " large-text " +
+              (isMakingQuoteCard && " absolute top-[12dvh] ") +
+              (!blobUrl && " absolute top-[12dvh] ")
+            }
           >
-            'title'
+            {isMakingQuoteCard
+              ? "Making Quote Card"
+              : blobUrl
+              ? "Quote Card is ready for download"
+              : "Failed to make the Quote Card"}
           </Dialog.Title>
-          <Dialog.Description
+          {/*  <Dialog.Description
             className="
               mb-3 
               text-center
             "
           >
             "description"
-          </Dialog.Description>
+          </Dialog.Description> */}
 
           <Dialog.Close asChild>
             <button
@@ -74,7 +101,21 @@ ModalProps) => {
               <IoMdClose size="25" />
             </button>
           </Dialog.Close>
-          <div autoFocus={true}>{"text"}</div>
+          {isMakingQuoteCard && <Spinner />}
+
+          {!isMakingQuoteCard && !blobUrl && (
+            <div autoFocus={true} className="large-text"></div>
+          )}
+
+          {isMakingQuoteCard && blobUrl && (
+            <section autoFocus={true} className="large-text space-y-[5dvh]">
+              <div>
+                <p className="space-y-[2dvh]">hover to see your preview</p>
+                <ImageBlob blobUrl={blobUrl} />
+              </div>
+              <DownloadButton handleDownload={handleDownload} />
+            </section>
+          )}
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

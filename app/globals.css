@@ -36,6 +36,7 @@ body,
     left-[50%]  
     translate-x-[-50%] 
     translate-y-[-50%] 
+    
   
     bg-slate-800/40 
     backdrop-blur-[5px]
@@ -53,5 +54,9 @@ body,
   
     
     flex flex-col items-center justify-center;
+  }
+
+  .image-blob {
+    @apply hover:scale-450 hover:max-h-[100dvh] hover:max-w-[100dvw] hover:aspect-[889/500] hover:drop-shadow-[0_0_50px_50px_rgba(0,0,0,0.6)] transition-all;
   }
 }

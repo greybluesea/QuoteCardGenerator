@@ -10,7 +10,53 @@ type Props = {};
 const QuoteButton = (props: Props) => {
   // const { openModal } = useModal();
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [isMakingQuoteCard, setIsMakingQuoteCard] = useState(false);
+  const [quoteCardString, setQuoteCardString] = useState<string | null>(null);
   const { TotalQuoteCardsAddOne } = useTotalQuoteCardsGenerated();
+
+  const handleOpenModal = (
+    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
+  ) => {
+    e.preventDefault();
+    setModalIsOpen(true);
+    setIsMakingQuoteCard(true);
+    try {
+      // Run Lambda Function
+      /*  const runFunction = "runFunction";
+      const runFunctionStringified = JSON.stringify(runFunction);
+      const response = await API.graphql<GenerateAQuoteData>({
+        query: generateAQuote,
+        authMode: "AWS_IAM",
+        variables: {
+          input: runFunctionStringified,
+        },
+      });
+      const responseStringified = JSON.stringify(response);
+      const responseReStringified = JSON.stringify(responseStringified);
+      const bodyIndex = responseReStringified.indexOf("body=") + 5;
+      const bodyAndBase64 = responseReStringified.substring(bodyIndex);
+      const bodyArray = bodyAndBase64.split(",");
+      const body = bodyArray[0];
+      console.log(body);
+      setQuoteReceived(body);
+
+      // End state:
+      setIsMakingQuoteCard(false);
+
+      // Fetch if any new quotes were generated from counter
+      updateQuoteInfo();
+      setIsMakingQuoteCard(false);
+       */
+
+      setTimeout(() => {
+        setIsMakingQuoteCard(false);
+      }, 3000);
+    } catch (error) {
+      console.log("error generating quote:", error);
+      setIsMakingQuoteCard(false);
+    }
+  };
+
   return (
     <>
       <button
@@ -23,13 +69,15 @@ const QuoteButton = (props: Props) => {
           marginTop: "min(7dvw, 7dvh)",
         }}
         // onClick={openModal}
-        onClick={() => setModalIsOpen(true)}
+        onClick={handleOpenModal}
       >
-        Quote of the day
+        Quote Card of the day
       </button>
       <Modal
         modalIsOpen={modalIsOpen}
         closeModal={() => setModalIsOpen(false)}
+        isMakingQuoteCard={isMakingQuoteCard}
+        quoteCardString={quoteCardString}
       />
     </>
   );

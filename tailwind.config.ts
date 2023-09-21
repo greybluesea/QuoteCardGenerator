@@ -8,6 +8,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      scale: {
+        "200": "2",
+        "450": "4.5",
+      },
       colors: {
         BRAND: {
           DEFAULT: "var(--BRAND)",
