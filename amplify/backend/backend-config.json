@@ -52,6 +52,15 @@
   "function": {
     "quoteCardGeneratorLambda": {
       "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "GraphQLAPIIdOutput"
+          ],
+          "category": "api",
+          "resourceName": "quotecardgenerator"
+        }
+      ],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
     }
