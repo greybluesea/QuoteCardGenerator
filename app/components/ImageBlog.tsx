@@ -39,7 +39,7 @@ const ImageBlob = ({
   return (
     <Image
       src={blobUrl}
-      className="image-blob"
+      className="image-blob z-[8]"
       alt="Generated quote card"
       width={178}
       height={100}

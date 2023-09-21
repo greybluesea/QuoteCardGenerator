@@ -5,18 +5,21 @@ import lottieJson from "../../public/img/animated-photo.json";
 
 interface DownloadButtonProps {
   handleDownload: () => void;
+  /*  blobUrl: string | null; */
 }
 
-const DownloadButton = ({ handleDownload }: DownloadButtonProps) => {
+const DownloadButton = ({
+  handleDownload /* ,blobUrl */,
+}: DownloadButtonProps) => {
   return (
     <div
-      className=" bg-orange-500/80 hover:bg-BRAND hover:text-TEXT-HIGHLIGHT transition-all z-[8] flex flex-col items-center p-6 rounded-lg"
+      className=" bg-orange-500/80 hover:bg-BRAND hover:text-TEXT-HIGHLIGHT transition-all flex justify-evenly items-center p-6 rounded-lg large-text cursor-pointer max-h-[120px] overflow-hidden"
       onClick={handleDownload}
     >
-      <div className="w-60 h-60 ">
+      <p>Download</p>
+      <div className=" w-20 h-20 ">
         <Lottie loop animationData={lottieJson} play />
       </div>
-      <p>Download your quote card</p>
     </div>
   );
 };

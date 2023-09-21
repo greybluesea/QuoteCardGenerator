@@ -26,7 +26,7 @@ const Modal = ({
     const link = document.createElement("a");
     if (typeof blobUrl === "string") {
       link.href = blobUrl;
-      link.download = "quote.png";
+      link.download = "quote-card.png";
       link.click();
     }
   };
@@ -50,23 +50,24 @@ const Modal = ({
       <Dialog.Portal>
         <Dialog.Overlay
           className="
-            bg-slate-800/20
+            bg-sky-700/20
             backdrop-blur-sm 
             fixed 
             inset-0
             z-[5]
           "
         />
-        <Dialog.Content className="square-in-the-center bg-sky-600/60 z-[6] ">
+        <Dialog.Content className="square-in-the-center bg-sky-600/60 z-[6] backdrop-blur-md ">
           <Dialog.Title
             className={
               " large-text " +
               (isMakingQuoteCard && " absolute top-[12dvh] ") +
-              (!blobUrl && " absolute top-[12dvh] ")
+              (!blobUrl && " absolute top-[12dvh] ") +
+              (!isMakingQuoteCard && blobUrl && " mb-[5dvh] ")
             }
           >
             {isMakingQuoteCard
-              ? "Making Quote Card"
+              ? "Making your Quote Card"
               : blobUrl
               ? "Quote Card is ready for download"
               : "Failed to make the Quote Card"}
@@ -108,12 +109,15 @@ const Modal = ({
           )}
 
           {!isMakingQuoteCard && blobUrl && (
-            <section autoFocus={true} className="large-text space-y-[5dvh]">
-              <div className="flex flex-col items-center space-y-[2dvh] ">
-                <p className="text-md">hover to see your preview</p>
+            <section autoFocus={true} className=" space-y-[5dvh]">
+              <div className="flex flex-col items-center space-y-[1dvh] ">
+                <p className="text-2xl">hover to preview</p>
                 <ImageBlob blobUrl={blobUrl} />
               </div>
-              <DownloadButton handleDownload={handleDownload} />
+              <DownloadButton
+                handleDownload={handleDownload}
+                /*  blobUrl={blobUrl} */
+              />
             </section>
           )}
         </Dialog.Content>
