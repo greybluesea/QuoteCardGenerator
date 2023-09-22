@@ -1,15 +1,7 @@
-## Quote Card Generator - AWS(Lambda/node.js + GraphQL API + DynamoDB) + Next.js
+## Quote Card Generator - AWS(GraphQL API + Lambda/node.js + DynamoDB) + Next.js
 
-- AWS( Lambda/node.js + GraphQL API + DynamoDB ) + Next.js
+- AWS( GraphQL API + Lambda/node.js + DynamoDB ) + Next.js
 - quotes from ZenQuotes; gradients from UIgradients
 - leanred from Brian Hough, powered by greybluesea
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Youtube: [https://www.youtube.com/watch?v=nnGg1Gmxhbc](https://www.youtube.com/watch?v=nnGg1Gmxhbc)

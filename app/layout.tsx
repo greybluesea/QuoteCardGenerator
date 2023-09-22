@@ -8,7 +8,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Quote Generator",
-  description: "AWS(Lambda+DynamoDB) + GraphQL + Next.js",
+  description: "AWS( GraphQL API + Lambda/node.js + DynamoDB ) + Next.js",
 };
 
 export default function RootLayout({
