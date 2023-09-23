@@ -7,7 +7,7 @@ import Footer from "./components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Quote Card Generator",
+  title: "Quote Generator",
   description: "AWS(GraphQL API + Lambda/node.js + DynamoDB + Next.js/Amplify)",
 };
 
