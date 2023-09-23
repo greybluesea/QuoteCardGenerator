@@ -3,11 +3,12 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import Image from "next/image";
 import Footer from "./components/Footer";
+import Header from "./components/Header";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Quote Generator",
+  title: "Quote Card Generator",
   description: "AWS(GraphQL API + Lambda/node.js + DynamoDB + Next.js/Amplify)",
 };
 
@@ -24,6 +25,7 @@ export default function RootLayout({
           " w-[100dvw] h-[100dvh] p-24 bg-gradient-to-br from-BGCOLOR-SECONDARY to-BGCOLOR bg-[size:200%_160%] animate-weather backdrop-blur-[80px] "
         }
       >
+        <Header />
         <div className="fixed left-[8dvw] top-[2.5dvh] w-[130px] aspect-square sm:w-[200px] md:w-[270px] lg:w-[320px] ">
           <Image
             src={"/img/cloud-and-thunder.png"}
