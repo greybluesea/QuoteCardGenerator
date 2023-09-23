@@ -7,8 +7,8 @@ import Footer from "./components/Footer";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Quote Generator",
-  description: "AWS(Lambda+DynamoDB) + GraphQL + Next.js",
+  title: "Quote Card Generator",
+  description: "AWS(GraphQL API + Lambda/node.js + DynamoDB + Next.js/Amplify)",
 };
 
 export default function RootLayout({
