@@ -59,7 +59,7 @@ const Footer = async (props: Props) => {
       <TotalQuoteCardsGenerated />
 
       <ul className="text-TEXT/60 hidden xl:flex xl:flex-col w-[500px]  mx-auto items-center  space-y-1 rounded-xl mt-3">
-        <li>AWS( Lambda/node.js + GraphQL API + DynamoDB ) + Next.js</li>
+        <li>AWS( GraphQL API + Lambda/node.js + DynamoDB ) + Next.js</li>
         <li>quotes from ZenQuotes; gradients from UIgradients</li>
 
         <li>
