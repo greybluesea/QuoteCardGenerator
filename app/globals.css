@@ -61,7 +61,52 @@ body,
     flex flex-col items-center justify-center;
   }
 
-  .image-blob {
-    @apply hover:scale-450 hover:max-h-[100dvh] hover:max-w-[100dvw] hover:aspect-[889/500] hover:rounded-md hover:shadow-[0_0_50px_50px_rgba(0,0,0,0.6)]  transition-all;
+  /*   .image-blob {
+    @apply hover:scale-450 hover:max-h-[80dvh] hover:max-w-[80dvw] hover:aspect-[889/500] hover:rounded-md hover:shadow-[0_0_50px_50px_rgba(0,0,0,0.6)]  transition-all;
+  } */
+}
+
+.image-blob:hover,
+.image-blob:focus {
+  transform: scale(1.5);
+  box-shadow: 0 0 18px 18px rgba(0, 0, 0, 0.6);
+}
+
+@media (min-width: 640px) {
+  .image-blob:hover,
+  .image-blob:focus {
+    transform: scale(2); /* Adjust the scale factor for larger screens */
+    box-shadow: 0 0 25px 25px rgba(0, 0, 0, 0.6);
+  }
+}
+
+@media (min-width: 768px) {
+  .image-blob:hover,
+  .image-blob:focus {
+    transform: scale(2.5); /* Adjust the scale factor for larger screens */
+    box-shadow: 0 0 30px 30px rgba(0, 0, 0, 0.6);
+  }
+}
+
+@media (min-width: 1024px) {
+  .image-blob:hover,
+  .image-blob:focus {
+    transform: scale(3); /* Adjust the scale factor for larger screens */
+    box-shadow: 0 0 38px 38px rgba(0, 0, 0, 0.6);
+  }
+}
+
+@media (min-width: 1280px) {
+  .image-blob:hover,
+  .image-blob:focus {
+    transform: scale(4); /* Adjust the scale factor for larger screens */
+    box-shadow: 0 0 50px 50px rgba(0, 0, 0, 0.6);
+  }
+}
+@media (min-width: 1536px) {
+  .image-blob:hover,
+  .image-blob:focus {
+    transform: scale(4.5); /* Adjust the scale factor for larger screens */
+    box-shadow: 0 0 58px 58px rgba(0, 0, 0, 0.6);
   }
 }
