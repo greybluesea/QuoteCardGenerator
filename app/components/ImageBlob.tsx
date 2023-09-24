@@ -4,14 +4,14 @@ import Image from "next/image";
 interface ImageBlobProps {
   // quoteCardString: string | null;
   blobUrl: string | null;
-  onClick: () => void;
+  /*  onClick: () => void; */
 }
 
 const ImageBlob = ({
   //  quoteCardString,
   blobUrl,
-  onClick,
-}: ImageBlobProps) => {
+}: /*   onClick, */
+ImageBlobProps) => {
   /*  const [blobUrl, setBlobUrl] = useState<string | null>(null);
 
   useEffect(() => {
@@ -41,11 +41,11 @@ const ImageBlob = ({
   return (
     <Image
       src={blobUrl}
-      className=" image-blob z-[8] "
+      className=" image-blob z-[8] hover:rounded-md transition-all "
       alt="Generated quote card"
       width={213}
       height={120}
-      onClick={onClick}
+      /*   onClick={onClick} */
     />
   );
 };

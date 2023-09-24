@@ -4,7 +4,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import React, { useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import Spinner from "./Spinner";
-import ImageBlob from "./ImageBlog";
+import ImageBlob from "./ImageBlob";
 import DownloadButton from "./DownloadButton";
 
 type ModalProps = {
@@ -117,7 +117,7 @@ const Modal = ({
             >
               <div className="flex flex-col items-center space-y-[1dvh] ">
                 <p className="medium-text">hover to preview</p>
-                <ImageBlob blobUrl={blobUrl} onClick={handleDownload} />
+                <ImageBlob blobUrl={blobUrl} /* onClick={handleDownload} */ />
               </div>
               <DownloadButton handleDownload={handleDownload} />
             </section>
